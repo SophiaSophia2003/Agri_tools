@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
 
   def set_layout
     # Assume current_user.admin? is a method indicating whether the user is an admin
-    current_user.admin? ? 'admin' : 'customer'
+    # current_user.admin? ? 'admin' : 'customer'
   end
 end
