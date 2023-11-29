@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_160939) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
@@ -98,7 +98,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_160939) do
     t.decimal "total_amount", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "province_id"
     t.index ["customer_id"], name: "order_customer_id_FK"
+    t.index ["province_id"], name: "orders_province_id_FK"
   end
 
   create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -133,6 +135,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_160939) do
     t.index ["category_id"], name: "product_category_id_FK"
   end
 
+  create_table "provinces", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "name"
+    t.decimal "tax", precision: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "customer_id"
     t.bigint "product_id"
@@ -158,6 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_160939) do
   add_foreign_key "order_items", "orders", name: "order_item_order_id_FK", on_update: :cascade
   add_foreign_key "order_items", "products", name: "order_item_product_id_FK", on_update: :cascade
   add_foreign_key "orders", "customers", name: "order_customer_id_FK", on_update: :cascade
+  add_foreign_key "orders", "provinces", name: "orders_province_id_FK", on_update: :cascade
   add_foreign_key "payments", "orders", name: "payment_order_id_FK", on_update: :cascade
   add_foreign_key "product_taxes", "products", name: "product_tax_product_id_FK", on_update: :cascade
   add_foreign_key "product_taxes", "taxes", name: "product_tax_tax_id_FK", on_update: :cascade

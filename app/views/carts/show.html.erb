@@ -1,12 +1,17 @@
 <!-- Display the contents of the user's cart -->
 <h1>Your Shopping Cart</h1>
 <% @cart.cart_items.each do |cart_item| %>
-  <div class="card">
+  <div class="card" style="margin-bottom: 10px;">
     <div class="card-body">
       <h5 class="card-title"><%= cart_item.product.name %></h5>
       <p class="card-text"><strong>Price:</strong> $<%= cart_item.product.price %></p>
-      <p class="card-text"><strong>Quantity:</strong> <%= cart_item.quantity %></p>
-  <%= button_to 'Remove from Cart', cart_item, method: :delete, class: 'btn btn-danger' %>
+      <%= form_with(model: cart_item, url: update_quantity_cart_path(cart_item), method: :patch) do |form| %>
+         <p class="card-text"><strong>Quantity:</strong><%= form.number_field :quantity, value: cart_item.quantity %>
+        <%= form.submit "Update Quantity", class: "btn btn-warning btn-sm" %></p>
+        
+      <% end %>
+      <br>
+      <%= button_to 'Remove from Cart', cart_item, method: :delete, class: 'btn btn-danger btn-sm' %>
     </div>
   </div>
 <% end %>

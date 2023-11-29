@@ -1,18 +1,7 @@
 
-<h1>Your Account</h1>
-<p><strong>Basic details</strong></p>
 
-<p><strong>Name:</strong> <%= @customer.first_name %></p>
-<p><strong>Email:</strong> <%= @customer.email %></p>
-
-<%= link_to "Edit Account", edit_customer_path, class: "btn btn-primary" %>
-
-<br>
-<br>
-
-<% if @addresses.present?%>
-<div class="row">
-  <h1>Address: <%= link_to "Add New Address",  new_customer_address_path(@customer), class: "btn btn-sm btn-primary" %></h1>
+<div class="container mt-5">
+  <h1>Address 			<%= link_to "Add New Address",  new_customer_address_path(@customer), class: "btn btn-sm btn-primary" %></h1>
   <div class="row">
   	<% if @addresses.present?%>
 	    <% @addresses.each do |address| %>
@@ -26,7 +15,8 @@
 	            <p class="card-text">City:  <%= address.city %></p>
 	            <p class="card-text">City:  <%= address.state %></p>
 	            <p class="card-text">City:  <%= address.country %></p>
-	            <%= link_to "Edit Address", edit_customer_address_path(@customer,address), class: "btn btn-warning btn-sm" %>
+
+	<%= link_to "Edit Address", edit_customer_address_path(@customer,address), class: "btn btn-warning btn-sm" %>
 	          </div>
 	        </div>
 	      </div>
@@ -34,11 +24,3 @@
 		<% end %>
   </div>
 </div>
-<% else %>
-	<%= link_to "Add Address",  new_customer_address_path(@customer), class: "btn btn-primary" %>
-<% end %>
-
-
-
-
-

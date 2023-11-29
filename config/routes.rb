@@ -2,21 +2,22 @@ Rails.application.routes.draw do
 devise_for :customers, controllers: {
   registrations: 'customers/registrations'
 }
-    # devise_for :customers
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "homes#index"
-  # namespace :administrator do
-  #   resources :sessions, only: [:new, :create, :destroy]
-  # end
-
-  # namespace :customer do
-  #   resources :sessions, only: [:new, :create, :destroy]
-  # end
+  root "products#index"
   resource :customer, only: [:show, :edit, :update]
+  resources :customers, path: "customers".to_s.humanize.parameterize do
+    resources :addresses
+  end
   resources :orders, only: [:index, :show, :new, :create]
   resources :products
-  resource :carts, only: [:show]
+  resource :cart, only: [:show]
+  resources :carts do
+    member do
+      patch 'update_quantity'
+      delete 'destroy'
+    end
+  end
   resources :cart_items, only: [:create, :update, :destroy]
+   post 'cart/add_to_cart/:product_id', to: 'cart#add_to_cart', as: 'add_to_cart'
 end

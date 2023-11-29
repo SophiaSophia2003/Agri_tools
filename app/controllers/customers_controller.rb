@@ -3,6 +3,7 @@ class CustomersController < ApplicationController
 
   def show
     @customer = current_customer
+    @addresses = @customer.addresses
   end
 
   def edit

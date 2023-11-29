@@ -5,7 +5,6 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -22,6 +21,12 @@
             <%= link_to 'Products', products_path, class: 'nav-link' %>
             <!-- <a class="nav-link" href="#">Products</a> -->
           </li>
+          <li class="nav-item">
+            <% if customer_signed_in? %>
+              <%= link_to 'Logout', destroy_customer_session_path, method: :delete, class: 'btn btn-danger' %>
+            <% end %>
+            <!-- <a class="nav-link" href="#">Products</a> -->
+          </li>
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
@@ -34,27 +39,17 @@
             </div>
           </li> -->
         </ul>
-
       </div>
     </nav>
-    
   </div>
-
-
   <div class="col-md-6">
-    <%= form_with(url: products_path, method: 'get',class: "form-inline my-2 my-lg-0") do |form| %>
-  <%= text_field_tag :query, params[:query], placeholder: 'Search for products...',class: "form-control mr-sm-2" %>
-  <%= submit_tag 'Search', class: "btn btn-outline-success my-2 my-sm-0" %>
-<% end %>
-
-    
+    <%= render 'shared/search_form' %>
   </div>
   <div class="col-md-2 ">
     <ul class="navbar-nav mr-auto float-right">
-          <li class="nav-item">
-            <%= button_to "View Cart", carts_path, method: :get, class: "btn btn-primary" %>
-          </li>
-        </ul>
-          
+      <li class="nav-item">
+        <a href="<%= cart_path %>" class="view-cart-button">View Cart<%#= cart_path %></a>
+      </li>
+    </ul>
   </div>
 </div>

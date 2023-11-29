@@ -7,6 +7,8 @@
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
   <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' %>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <%#= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
 
   <%= csrf_meta_tags %>
@@ -16,12 +18,14 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 98vh;
 }
 
 .wrapper {
   flex: 1;
   padding: 20px; /* Adjust as needed */
+  min-height: 80vh;
+
 }
 
 .footer {
@@ -31,10 +35,48 @@
   position: sticky;
   bottom: 0;
 }
+
+.view-cart-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; /* Adjust color as needed */
+  color: #fff; /* Text color */
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.view-cart-button:hover {
+  background-color: #0056b3; /* Adjust hover color as needed */
+}
   </style>
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<style type="text/css">
+  .alert-success{
+    color: green;
+  }
+  .alert-danger{
+    color: red;
+  }
+</style>
+<script type="text/javascript">
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
+var ready = function() {    
+   setTimeout(clearNotice, 1000);  //Flash fade
+};
+</script>
 
 </head>
 <body>
+
 
 
 </div>
@@ -49,6 +91,7 @@
 
       <!-- Main Content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 wrapper">
+          <%= render 'layouts/flash_modal' %>
             <%= yield %>
       </main>
     </div>
