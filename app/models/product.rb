@@ -5,5 +5,7 @@ class Product < ApplicationRecord
    has_many :taxes, through: :product_taxes
    belongs_to :category
    has_many :reviews
+   has_many :order_items
+   has_many :cart_items
 
 end

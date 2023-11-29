@@ -1,0 +1,21 @@
+<!-- app/views/orders/new.html.erb -->
+<h1>Create a New Order</h1>
+
+<%= form_with(model: @order, url: orders_path, local: true) do |form| %>
+  <!-- Add form fields for creating a new order -->
+  <%= form.label :address %>
+  <%= form.text_field :address %>
+
+  <%= form.label :payment_method %>
+  <%= form.select :payment_method, ['Credit Card', 'PayPal', 'Other'] %>
+
+  <%= form.fields_for :line_items do |line_item_form| %>
+    <%= line_item_form.label :product_id %>
+    <%= line_item_form.collection_select :product_id, Product.all, :id, :name %>
+
+    <%= line_item_form.label :quantity %>
+    <%= line_item_form.number_field :quantity %>
+  <% end %>
+
+  <%= form.submit "Place Order", class: "btn btn-primary" %>
+<% end %>

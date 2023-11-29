@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_160939) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "address_customer_id_FK"
   end
 
   create_table "administrators", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -30,6 +31,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.string "email"
     t.string "encrypted_password"
     t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "quantity"
+    t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,8 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "administrator_id"
-    t.index ["administrator_id"], name: "category_administrator_id_FK"
+    t.integer "administrator_id"
   end
 
   create_table "customers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -63,6 +71,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -99,12 +113,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
   end
 
   create_table "product_taxes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "tax_id", null: false
+    t.bigint "product_id"
+    t.bigint "tax_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_product_taxes_on_product_id"
-    t.index ["tax_id"], name: "index_product_taxes_on_tax_id"
+    t.index ["product_id"], name: "product_tax_product_id_FK"
+    t.index ["tax_id"], name: "product_tax_tax_id_FK"
   end
 
   create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -115,8 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "administrator_id"
-    t.index ["administrator_id"], name: "product_administrator_id_FK"
+    t.integer "administrator_id"
     t.index ["category_id"], name: "product_category_id_FK"
   end
 
@@ -139,16 +152,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_122334) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "addresses", "customers", name: "address_customer_id_FK", on_update: :cascade
   add_foreign_key "carts", "customers", name: "cart_customer_id_FK", on_update: :cascade
   add_foreign_key "carts", "products", name: "cart_product_id_FK", on_update: :cascade
-  add_foreign_key "categories", "administrators", name: "category_administrator_id_FK", on_update: :cascade
   add_foreign_key "order_items", "orders", name: "order_item_order_id_FK", on_update: :cascade
   add_foreign_key "order_items", "products", name: "order_item_product_id_FK", on_update: :cascade
   add_foreign_key "orders", "customers", name: "order_customer_id_FK", on_update: :cascade
   add_foreign_key "payments", "orders", name: "payment_order_id_FK", on_update: :cascade
-  add_foreign_key "product_taxes", "products"
-  add_foreign_key "product_taxes", "taxes"
-  add_foreign_key "products", "administrators", name: "product_administrator_id_FK", on_update: :cascade
+  add_foreign_key "product_taxes", "products", name: "product_tax_product_id_FK", on_update: :cascade
+  add_foreign_key "product_taxes", "taxes", name: "product_tax_tax_id_FK", on_update: :cascade
   add_foreign_key "products", "categories", name: "product_category_id_FK", on_update: :cascade
   add_foreign_key "reviews", "customers", name: "review_customer_id_FK", on_update: :cascade
   add_foreign_key "reviews", "products", name: "review_product_id_FK", on_update: :cascade

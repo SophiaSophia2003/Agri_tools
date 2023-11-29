@@ -1,0 +1,12 @@
+<!-- Display the contents of the user's cart -->
+<h1>Your Shopping Cart</h1>
+<% @cart.cart_items.each do |cart_item| %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= cart_item.product.name %></h5>
+      <p class="card-text"><strong>Price:</strong> $<%= cart_item.product.price %></p>
+      <p class="card-text"><strong>Quantity:</strong> <%= cart_item.quantity %></p>
+  <%= button_to 'Remove from Cart', cart_item, method: :delete, class: 'btn btn-danger' %>
+    </div>
+  </div>
+<% end %>

@@ -1,1 +1,26 @@
-product index page
+<div class="container mt-5">
+  <h1>Product List</h1>
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to product.name, product_path(product) %></h5>
+            <p class="card-text"><%= product.description %></p>
+            <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>
+            <!-- Add more product details or buttons as needed -->
+             <%#= link_to 'Add to Cart', cart_items_path(product_id: product.id), method: :post, class: 'btn btn-primary' %>
+                   <%= form_with(model: @cart_item, url: cart_items_path, method: :post) do |form| %>
+        <%= form.hidden_field :product_id, value: product.id %>
+        <%= form.submit 'Add to Cart', class: 'btn btn-primary' %>
+      <% end %>
+             <%#= link_to 'Cart Items', cart_items_path, method: :post %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
