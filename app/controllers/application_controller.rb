@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
 
 
   def current_cart
-    byebug
+
     @current_cart ||= Cart.find_or_create_by(id: session[:cart_id] || params[:id])
     session[:cart_id] = @current_cart.id
     @current_cart
-  end  
+  end
 end

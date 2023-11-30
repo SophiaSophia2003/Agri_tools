@@ -23,7 +23,10 @@
           </li>
           <li class="nav-item">
             <% if customer_signed_in? %>
-              <%= link_to 'Logout', destroy_customer_session_path, method: :delete, class: 'btn btn-danger' %>
+<%= form_tag(destroy_customer_session_path, method: :delete) do %>
+  <%= csrf_meta_tags %>
+  <%= submit_tag('Logout', class: "btn btn-danger") %>
+<% end %>
             <% end %>
             <!-- <a class="nav-link" href="#">Products</a> -->
           </li>

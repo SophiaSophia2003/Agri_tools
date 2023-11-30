@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-5">
 		  <div class="form-group">
-		    <%= select_tag :category, options_for_select(Category.all.map { |c| [c.name, c.id] }, params[:category]), include_blank: "All Categories", class: "form-control" %>
+		    <%= select_tag :category_name, options_for_select(Category.all.map { |c| [c.name, c.id] }, params[:category]), include_blank: "All Categories", class: "form-control" %>
 		  </div>
 	</div>
 	<div class="col-md-2">

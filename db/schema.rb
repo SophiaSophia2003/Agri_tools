@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
-  create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
     t.text "street_address"
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["customer_id"], name: "address_customer_id_FK"
   end
 
-  create_table "administrators", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "administrators", charset: "utf8mb4", force: :cascade do |t|
     t.boolean "active"
     t.string "first_name"
     t.string "last_name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cart_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "cart_items", charset: "utf8mb4", force: :cascade do |t|
     t.integer "product_id"
     t.integer "quantity"
     t.integer "cart_id"
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "carts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "carts", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.bigint "product_id"
     t.integer "quantity"
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["product_id"], name: "cart_product_id_FK"
   end
 
-  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.integer "administrator_id"
   end
 
-  create_table "customers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "customers", charset: "utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "first_name"
     t.string "last_name"
@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-  create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "order_items", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "order_id"
     t.bigint "product_id"
     t.integer "quantity"
@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["product_id"], name: "order_item_product_id_FK"
   end
 
-  create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "orders", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.datetime "order_date"
     t.string "status"
@@ -103,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["province_id"], name: "orders_province_id_FK"
   end
 
-  create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "payments", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "order_id"
     t.datetime "payment_date"
     t.string "payment_method"
@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["order_id"], name: "payment_order_id_FK"
   end
 
-  create_table "product_taxes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "product_taxes", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "tax_id"
     t.datetime "created_at", null: false
@@ -123,7 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["tax_id"], name: "product_tax_tax_id_FK"
   end
 
-  create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "products", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.decimal "price", precision: 10
@@ -135,14 +135,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["category_id"], name: "product_category_id_FK"
   end
 
-  create_table "provinces", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "provinces", charset: "utf8mb4", force: :cascade do |t|
     t.integer "name"
     t.decimal "tax", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.bigint "product_id"
     t.integer "rating"
@@ -154,7 +154,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["product_id"], name: "review_product_id_FK"
   end
 
-  create_table "taxes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "taxes", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.decimal "rate", precision: 5, scale: 2
     t.datetime "created_at", null: false
