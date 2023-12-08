@@ -1,0 +1,20 @@
+
+      <!-- Sidebar -->
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar" style="padding-left: 1.6%;">
+      <p><strong>Category</strong></p>
+        <div class="position-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <%= link_to "Products", administrators_products_path, class: "nav-link active" %>
+                <%= link_to "Categories", administrators_categories_path, class: "nav-link active" %>
+
+               <%= link_to "Customers", administrators_customers_path, class: "nav-link active" %>
+
+                <%= link_to "Provices", administrators_provinces_path, class: "nav-link active" %>
+
+                <%= link_to "Customer Orders", administrators_orders_path, class: "nav-link active" %>
+
+            </li>
+          </ul>
+        </div>
+      </nav>

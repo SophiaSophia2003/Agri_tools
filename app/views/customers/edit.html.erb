@@ -15,5 +15,8 @@
   <%= form.label :password_confirmation %>
   <%= form.password_field :password_confirmation %>
 
+  <%= form.collection_select(:province_id, Province.all, :id, :name, { prompt: 'Select Province' }) %>
+
+
   <%= form.submit "Update Account", class: "btn btn-primary" %>
 <% end %>

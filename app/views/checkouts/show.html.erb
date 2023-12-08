@@ -1,0 +1,58 @@
+<!-- app/views/checkout/show.html.erb -->
+
+<h1>Checkout</h1>
+
+
+  <%= form_with(model: @order, url: process_payment_checkout_path, method: :post) do |form| %>
+    <% if @cart.cart_items.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart.cart_items.each do |cart_item| %>
+            <tr>
+              <td><%= cart_item.product.name %></td>
+              <td><%= cart_item.quantity %></td>
+              <td><%= cart_item.product.price %></td>
+              <td><%= cart_item.quantity * cart_item.product.price %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+
+
+      <p>Sub Total: <%= @subtotal = @cart.cart_items.sum { |cart_item| cart_item.quantity * cart_item.product.price } %></p>
+<p>GST:<%= @gst_amount = @subtotal * @gst_rate%></p>
+<p>PST:<%= @pst_amount = @subtotal * @pst_rate%></p>
+<p>HST:<%= @hst_amount = @subtotal * @hst_rate%></p>
+<p>Total Tax:<%= @tax_amount = @gst_amount + @pst_amount + @hst_amount %></p>
+<p>Total Amount:<%= @total_amount = @subtotal + @tax_amount%></p>
+      <% else %>
+        <p>Your cart is empty.</p>
+      <% end %>
+
+  <%#= form_with(model: @order, url: orders_path, local: true) do |form| %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <!-- Add form fields for creating a new order -->
+    <%= form.label :payment_method %>
+    <%= form.select :payment_method, ['Credit Card', 'PayPal', 'Other'] %>
+      <%= form.hidden_field :total_amount, value: @total_amount %>
+
+    <%= form.fields_for :cart_items do |cart_item_form| %>
+      <% @cart.cart_items.each do |cart_item| %>
+        <%= cart_item_form.hidden_field :product_id, value: cart_item.product.id %>
+        <%= cart_item_form.hidden_field :quantity, value: cart_item.quantity %>
+      <% end %>
+    <% end %>
+  <%# end %>
+
+    <%= form.submit "Place Order", class: "btn btn-primary" %>
+  <% end %>
+

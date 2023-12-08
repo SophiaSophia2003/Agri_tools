@@ -49,6 +49,9 @@
 .view-cart-button:hover {
   background-color: #0056b3; /* Adjust hover color as needed */
 }
+.product-type{
+  margin-bottom: 10px;
+}
   </style>
 <% if notice %>
   <p class="alert alert-success"><%= notice %></p>
@@ -80,6 +83,7 @@ var ready = function() {
 
 
 </div>
+<% if current_customer.present?%>
       <%= render 'layouts/header' %>
 
      <!-- Page Content -->
@@ -100,6 +104,28 @@ var ready = function() {
   <footer class="bg-dark text-light text-center py-3" style="margin-top: 1%;">
     <p>&copy; 2023 Your E-Commerce Site</p>
   </footer>
+  <%else%>
+      <%= render 'layouts/admin_header' %>
+
+     <!-- Page Content -->
+  <div class="container-fluid">
+    <div class="row">
+             <%= render 'layouts/admin_sidebar' %>
+
+
+
+      <!-- Main Content -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 wrapper">
+          <%= render 'layouts/flash_modal' %>
+            <%= yield %>
+      </main>
+    </div>
+  </div>
+    <!-- Footer -->
+  <footer class="bg-dark text-light text-center py-3" style="margin-top: 1%;">
+    <p>&copy; 2023 Your E-Commerce Site</p>
+  </footer>
+  <%end%>
 </body>
 </html>
 

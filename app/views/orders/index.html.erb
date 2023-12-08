@@ -1,6 +1,18 @@
-<!-- app/views/orders/index.html.erb -->
-<h1>Your Order History</h1>
 
-<% @orders.each do |order| %>
-  <%= link_to "Order ##{order.id}", order_path(order) %>
+<h2>Your Orders</h2>
+
+<% if @orders.any? %>
+  <ul style="list-style-type: none">
+    <% @orders.each_with_index do |order,index| %>
+  <br>
+  <br>
+  <strong>Order Id: <%= order.id%></strong>
+      <li>Order total: <%= order.total_amount%></li>
+      <li>Order Id: <%= order.id%></li>
+      <li>Order status: <%= order.status%></li>
+      <li><%#= link_to "Order ##{order.id}", order_path(order) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't placed any orders yet.</p>
 <% end %>
