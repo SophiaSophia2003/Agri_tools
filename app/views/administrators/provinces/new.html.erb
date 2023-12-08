@@ -1,0 +1,39 @@
+<h1>New Province</h1>
+
+<%= form_with(model: @province, url: administrators_provinces_path, method: :post, local: true) do |form| %>
+  <% if @province.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@province.errors.count, 'error') %> prohibited this province from being saved:</h2>
+
+      <ul>
+        <% @province.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :province_name %>
+    <%= form.text_field :province_name , class: 'form-control'%>
+  </div>
+
+  <div class="field">
+    <%= form.label :gst_rate %>
+    <%= form.number_field :gst_rate , class: 'form-control'%>
+  </div>
+
+  <div class="field">
+    <%= form.label :pst_rate%>
+    <%= form.number_field :pst_rate, class: 'form-control' %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :hst_rate %>
+    <%= form.number_field :hst_rate, class: 'form-control' %>
+  </div> 
+<br>
+  <div class="actions">
+     <%= submit_tag 'Submit', class: 'btn btn-primary btn-sm' %>
+  </div>
+<% end %>
+

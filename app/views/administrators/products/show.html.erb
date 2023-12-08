@@ -1,0 +1,43 @@
+<!-- app/views/admin/products/show.html.erb -->
+<style type="text/css">
+  .img-width{
+    width: 300px;
+  }
+</style>
+
+<h1>Product Details</h1>
+
+<div>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</div>
+
+
+<div>
+  <strong>Category:</strong>
+  <%= @product.category.name %>
+</div>
+
+<div>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</div>
+
+<div>
+  <strong>Price:</strong>
+  <%= number_to_currency(@product.price) %>
+</div>
+
+<div>
+  <strong>Quantity:</strong>
+  <%= @product.stock_quantity %>
+</div>
+
+<% if @product.thumbnail? %>
+  <%= image_tag @product.thumbnail, class: 'card-img-top img-width'  %>
+<%else%>
+  <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image" style="width: 40%;">
+<% end %>
+
+<%= link_to 'Edit', edit_administrators_product_path(@product), class: 'btn btn-warning' %>
+<%= link_to 'Back', administrators_products_path, class: 'btn btn-secondary' %>

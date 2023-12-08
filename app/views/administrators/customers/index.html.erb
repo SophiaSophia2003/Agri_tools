@@ -1,0 +1,29 @@
+<h1>Customer Management</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name %></td>
+        <td><%= customer.last_name %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.phone_number %></td>
+        <td>
+          <%= link_to 'Edit', edit_administrators_customer_path(customer), class: 'btn btn-warning btn-sm' %>
+          <%= link_to 'View', administrators_customer_path(customer), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Delete', administrators_customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,26 @@
+<!-- app/views/admin/products/show.html.erb -->
+
+<h1>Customer Details</h1>
+
+<div>
+  <strong>First Name:</strong>
+  <%= @customer.first_name %>
+</div>
+
+<div>
+  <strong>Last Name:</strong>
+  <%= @customer.last_name %>
+</div>
+
+<div>
+  <strong>Email:</strong>
+  <%= @customer.email %>
+</div>
+
+<div>
+  <strong>Phone:</strong>
+  <%= @customer.phone_number %>
+</div>
+
+<%= link_to 'Edit', edit_administrators_customer_path(@customer), class: 'btn btn-warning' %>
+<%= link_to 'Back', administrators_customers_path, class: 'btn btn-secondary' %>

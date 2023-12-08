@@ -1,0 +1,32 @@
+<!-- app/views/admin/products/index.html.erb -->
+
+<h1>Product Management</h1>
+
+<%#= link_to 'New Product', new_administrators_product_path, class: 'btn btn-primary mb-3' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
+        <td><%= product.stock_quantity %></td>
+        <td>
+          <%= link_to 'Edit', edit_administrators_product_path(product), class: 'btn btn-warning btn-sm' %>
+          <%= link_to 'View', administrators_product_path(product), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Delete', administrators_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,32 @@
+<!-- app/views/admin/products/index.html.erb -->
+
+<h1>Provinces Management</h1>
+
+<%= link_to 'New Province', new_administrators_province_path, class: 'btn btn-primary mb-3' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>GST</th>
+      <th>PST</th>
+      <th>HST</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @provinces.each do |province| %>
+      <tr>
+        <td><%= province.name %></td>
+        <td><%= province.gst_rate %></td>
+        <td><%= province.pst_rate %></td>
+        <td><%= province.hst_rate %></td>
+        <td>
+          <%= link_to 'Edit', edit_administrators_province_path(province), class: 'btn btn-warning btn-sm' %>
+          <%= link_to 'View', administrators_province_path(province), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Delete', administrators_province_path(province), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
