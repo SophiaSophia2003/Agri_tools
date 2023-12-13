@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
 
   def show
     @customer = current_customer
-    @province = Province.find_by(@customer.province_id).name
+    @province = Province.find(@customer.province_id).name
     @addresses = @customer.addresses
   end
 
