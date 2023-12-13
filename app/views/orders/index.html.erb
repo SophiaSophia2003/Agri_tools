@@ -10,6 +10,8 @@
       <li>Order total: <%= order.total_amount%></li>
       <li>Order Id: <%= order.id%></li>
       <li>Order status: <%= order.status%></li>
+      <li>Order date: <%= order.created_at%></li>
+
       <li><%#= link_to "Order ##{order.id}", order_path(order) %></li>
     <% end %>
   </ul>
