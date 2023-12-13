@@ -10,7 +10,8 @@
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
-      <th>Quantity</th>
+      <th>Categories</th>
+       <th>Quantity</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -20,6 +21,8 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
+        <td><%= product.categories.map{ |c| c.name}.join(", ")
+ %></td>
         <td><%= product.stock_quantity %></td>
         <td>
           <%= link_to 'Edit', edit_administrators_product_path(product), class: 'btn btn-warning btn-sm' %>
@@ -28,7 +31,7 @@
         </td>
       </tr>
     <% end %>
-    
+
   </tbody>
 </table>
     <%= paginate @products %>
