@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_09_175027) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_230328) do
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
@@ -163,9 +163,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_09_175027) do
     t.decimal "tax", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "gst_rate", precision: 10, default: "0"
-    t.decimal "pst_rate", precision: 10, default: "0"
-    t.decimal "hst_rate", precision: 10, default: "0"
+    t.decimal "gst_rate", precision: 12, scale: 2, default: "0.0"
+    t.decimal "pst_rate", precision: 12, scale: 2, default: "0.0"
+    t.decimal "hst_rate", precision: 12, scale: 2, default: "0.0"
   end
 
   create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
