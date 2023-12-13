@@ -1,6 +1,6 @@
 class Province < ApplicationRecord
 
-   # validates :province_name, :gst_rate
+   validates_presence_of :name, :gst_rate
    has_one :customer
 
 

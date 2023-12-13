@@ -1,6 +1,35 @@
 <div class="container mt-5">
-  <h1><%= @product.name %></h1>
-  <p><%= @product.description %></p>
-  <p><strong>Price:</strong> $<%= @product.price %></p>
-  <!-- Add more product details as needed -->
+    <%= render_breadcrumbs %>
+  <div class="row">
+    <%= form_tag(products_path, method: 'get', class: 'form-inline product-type') do %>
+      <div class="form-group">
+        <%= label_tag 'product_type', 'Filter by Type:', class: 'mr-2' %>
+        <%= select_tag 'product_type', options_for_select(Product.product_types.keys, params[:product_type]), { include_blank: true, class: 'form-control' } %>
+      </div>
+      <%= submit_tag 'Filter', class: 'btn btn-primary ml-2' %>
+    <% end %>
+    <% @products.each do |product| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <%if product.thumbnail.present?%>
+             <%= image_tag product.thumbnail %>
+          <%else%>
+            <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+          <%end%>
+          <div class="card-body">
+            <h5 class="card-title">
+            <%= link_to product.name, product_path(product) %></h5>
+            <p class="card-text product-title"><%= product.description %></p>
+            <p class="card-text"><strong>Price:</strong> $<%= product.price %></p>
+            <%= form_with(model: @cart, url: carts_path, method: :post) do |form| %>
+              <%= form.hidden_field :product_id, value: product.id %>
+              <%= form.submit 'Add to Cart', class: 'btn btn-primary' %>
+            <% end %>
+              <%#= link_to 'Add to Cart', add_to_cart_path(@product), method: :post, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @products %>
+  </div>
 </div>

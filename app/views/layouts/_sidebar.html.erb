@@ -1,15 +1,13 @@
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar" style="padding-left: 1.6%;">
+<p><strong>Category</strong></p>
+  <div class="position-sticky">
+    <ul class="nav flex-column">
+    	<% Category.all.each do |category| %>
+      <li class="nav-item">
+          <%= link_to category.name, category_path(category), class: "nav-link active" %>
+      </li>
+      <% end %>
 
-      <!-- Sidebar -->
-      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar" style="padding-left: 1.6%;">
-      <p><strong>Category</strong></p>
-        <div class="position-sticky">
-          <ul class="nav flex-column">
-          	<% Category.all.each do |category| %>
-            <li class="nav-item">
-                <%= link_to category.name, products_path(category: category.name), class: "nav-link active" %>
-            </li>
-            <% end %>
- 
-          </ul>
-        </div>
-      </nav>
+    </ul>
+  </div>
+</nav>

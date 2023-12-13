@@ -1,6 +1,7 @@
 <!-- app/views/products/show.html.erb (or relevant view file) -->
 
 <div class="container mt-5">
+  <%= render_breadcrumbs %>
   <div class="row">
     <!-- Product Image -->
     <div class="col-md-6">
@@ -15,7 +16,7 @@
     <!-- Product Details -->
     <div class="col-md-6">
       <h2><%= @product.name %></h2>
-      <p class="text-muted">Category: <%= @product.category.name %></p>
+      <p class="text-muted">Category:<%= @product.categories.map{ |c| link_to(c.name, category_path(c))}.join(", ").html_safe %></p>
       <p><%= @product.description %></p>
       
       <!-- Product Price -->

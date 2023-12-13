@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
+  devise_for :administrators
+  ActiveAdmin.routes(self)
 
-  devise_for :administrators, controllers: { sessions: 'administrators/sessions', registrations: 'administrators/registrations' }
+  # devise_for :administrators, controllers: { sessions: 'administrators/sessions', registrations: 'administrators/registrations' }
   devise_for :customers
 
   namespace :administrators do
-    root "products#index"
+    root "aministrators/products#index"
     resources :products
     resources :categories
     resources :customers
     resources :provinces
     resources :taxes
-    resources :orders
-
+    resources :orders do
+      member do
+        get 'edit_status'
+        patch 'update_status'
+      end
+    end
   end
   resources :administrators
   resources :categories
@@ -26,7 +32,7 @@ Rails.application.routes.draw do
 # }
 
   # Defines the root path route ("/")
-  root "products#index"
+  root "homes#index"
   resource :customer, only: [:show, :edit, :update]
   resources :customers, path: "customers".to_s.humanize.parameterize do
     resources :addresses

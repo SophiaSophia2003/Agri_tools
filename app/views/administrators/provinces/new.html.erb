@@ -19,18 +19,18 @@
 
   <div class="field">
     <%= form.label :gst_rate %>
-    <%= form.number_field :gst_rate , class: 'form-control'%>
+    <%= form.text_field :gst_rate , class: 'form-control'%>
   </div>
 
   <div class="field">
     <%= form.label :pst_rate%>
-    <%= form.number_field :pst_rate, class: 'form-control' %>
-  </div>  
+    <%= form.text_field :pst_rate, class: 'form-control' %>
+  </div>
 
   <div class="field">
     <%= form.label :hst_rate %>
-    <%= form.number_field :hst_rate, class: 'form-control' %>
-  </div> 
+    <%= form.text_field :hst_rate, class: 'form-control' %>
+  </div>
 <br>
   <div class="actions">
      <%= submit_tag 'Submit', class: 'btn btn-primary btn-sm' %>

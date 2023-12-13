@@ -5,7 +5,7 @@ class Administrators::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.page(params[:page]).per(20)
   end
 
   def show
@@ -17,6 +17,7 @@ class Administrators::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.category_ids = params[:product][:category_ids]
     if @product.save
       redirect_to administrators_product_path(@product), notice: 'Product was successfully created.'
     else

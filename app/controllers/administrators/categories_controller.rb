@@ -9,6 +9,7 @@ class Administrators::CategoriesController < ApplicationController
   end
 
   def show
+    @products = Product.joins(:categories).where(categories: {id: @category.id})
   end
 
   def new

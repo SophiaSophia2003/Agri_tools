@@ -2,4 +2,15 @@
 
 <h1>Order Confirmation</h1>
 
-<p>Your order was successfully placed. Thank you!</p>
+<p>Your order was successfully placed. Thank you! below are the order details</p>
+
+<br>
+<br>
+<br>
+<p><strong>Order ID </strong>: <%=@order.id%></p>
+<p><strong>Order Status </strong>:  <%=@order.status%></p>
+<p><strong>Order Total </strong>: amount <%=@order.total_amount%></p>
+<p><strong>Order Date </strong>: <%=@order.created_at%></p>
+<p><strong>Customer Name </strong>: <%=@order.customer.first_name%></p>
+<p><strong>Customer Email</strong>:  <%=@order.customer.email%></p>
+<p><strong>Payment Reference NO</strong>:  <%=@order.stripe_payment_id%></p>

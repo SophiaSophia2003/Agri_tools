@@ -26,3 +26,30 @@
 .pagination-link:hover {
   background-color: #f0f0f0;
 }
+
+
+/* app/assets/stylesheets/application.css */
+.breadcrumbs {
+  margin: 10px 0;
+}
+
+.breadcrumbs ol {
+  list-style: none;
+  padding: 0;
+}
+
+.breadcrumbs li {
+  display: inline;
+  margin-right: 5px;
+}
+
+.breadcrumbs li::after {
+  content: '>';
+  margin-left: 5px;
+  margin-right: 5px;
+  color: #999;
+}
+
+.breadcrumbs li:last-child::after {
+  content: '';
+}

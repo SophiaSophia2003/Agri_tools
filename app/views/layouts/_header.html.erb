@@ -14,9 +14,11 @@
               <%= link_to "Sign In", new_customer_session_path, class: "nav-link" %>
             <% end %>
           </li>
+            <% if customer_signed_in? %>
           <li class="nav-item">
             <%= link_to 'Your Orders', orders_path, class: 'nav-link' %>
           </li>
+          <%end%>
           <li class="nav-item">
             <%= link_to 'Products', products_path, class: 'nav-link' %>
             <!-- <a class="nav-link" href="#">Products</a> -->
@@ -28,19 +30,7 @@
                 <%= submit_tag 'Logout', class: 'btn btn-danger btn-sm' %>
               <% end %>
             <% end %>
-            <!-- <a class="nav-link" href="#">Products</a> -->
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
         </ul>
       </div>
     </nav>
@@ -48,11 +38,11 @@
   <div class="col-md-6">
     <%= render 'shared/search_form' %>
   </div>
- <% if customer_signed_in? %>
+  <% if customer_signed_in? %>
   <div class="col-md-2 ">
     <ul class="navbar-nav mr-auto float-right">
       <li class="nav-item">
-        <a href="<%= cart_path %>" class="view-cart-button">View Cart<%#= cart_path %></a>
+        <a href="<%= cart_path %>" class="view-cart-button">View Cart</a>
       </li>
     </ul>
   </div>

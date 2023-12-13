@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_07_191303) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_09_175027) do
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
@@ -63,6 +63,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_191303) do
     t.integer "administrator_id"
   end
 
+  create_table "categorizations", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_categorizations_on_category_id"
+    t.index ["product_id"], name: "index_categorizations_on_product_id"
+  end
+
   create_table "customers", charset: "utf8mb4", force: :cascade do |t|
     t.string "username"
     t.string "first_name"
@@ -102,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_191303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "province_id"
+    t.string "stripe_payment_id"
     t.index ["customer_id"], name: "order_customer_id_FK"
     t.index ["province_id"], name: "orders_province_id_FK"
   end
@@ -180,6 +190,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_191303) do
   add_foreign_key "addresses", "customers", name: "address_customer_id_FK", on_update: :cascade
   add_foreign_key "carts", "customers", name: "cart_customer_id_FK", on_update: :cascade
   add_foreign_key "carts", "products", name: "cart_product_id_FK", on_update: :cascade
+  add_foreign_key "categorizations", "categories"
+  add_foreign_key "categorizations", "products"
   add_foreign_key "order_items", "orders", name: "order_item_order_id_FK", on_update: :cascade
   add_foreign_key "order_items", "products", name: "order_item_product_id_FK", on_update: :cascade
   add_foreign_key "orders", "customers", name: "order_customer_id_FK", on_update: :cascade

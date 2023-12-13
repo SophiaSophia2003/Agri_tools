@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_administrator!
-    redirect_to root_path, alert: 'You are not authorized to access this page.' unless current_administrator
+     redirect_to login_path unless current_administrator
+    # redirect_to root_path, alert: 'You are not authorized to access this page.' unless current_administrator
   end
 
   def current_cart

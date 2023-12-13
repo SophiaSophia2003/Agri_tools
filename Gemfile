@@ -18,9 +18,19 @@ gem 'byebug'
 
 # enum gem
 gem 'simple_enum'
+# breadcrumbs
+gem 'breadcrumbs_on_rails'
+gem 'rubocop'
 
-# Gemfile
+# faker
 gem 'faker'
+
+#payment
+gem 'stripe'
+gem 'dotenv-rails'
+
+gem 'activeadmin'
+
 
 
 # Image Uploads
@@ -33,6 +43,9 @@ gem 'file_validators'
 
 #Pagination gem
 gem 'kaminari'
+gem 'sassc-rails'
+gem 'sprockets-rails'
+
 
 
 

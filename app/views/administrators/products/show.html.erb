@@ -14,8 +14,8 @@
 
 
 <div>
-  <strong>Category:</strong>
-  <%= @product.category.name %>
+  <strong>Categories:</strong>
+    <td><%= @product.categories.map{ |c| link_to(c.name,administrators_category_path(c))}.join(", ").html_safe %></td>
 </div>
 
 <div>
@@ -34,7 +34,7 @@
 </div>
 
 <% if @product.thumbnail? %>
-  <%= image_tag @product.thumbnail, class: 'card-img-top img-width'  %>
+  <%= image_tag @product.thumbnail.url, class: 'card-img-top img-width'  %>
 <%else%>
   <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image" style="width: 40%;">
 <% end %>

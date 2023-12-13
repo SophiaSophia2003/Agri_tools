@@ -1,0 +1,41 @@
+// app/assets/stylesheets/product.scss
+
+// Variables
+$primary-color: #3498db;
+$background-color: #ecf0f1;
+
+// Nesting and Inheritance
+.product-container {
+  padding: 20px;
+  background-color: $background-color;
+  border: 1px solid $primary-color;
+
+  // Nesting for child elements
+  .product-title {
+    font-size: 24px;
+    color: $primary-color;
+  }
+
+  .product-description {
+    font-size: 16px;
+    margin-top: 10px;
+
+    // Inheritance using the & operator
+    &-highlighted {
+      color: darken($primary-color, 20%);
+      font-weight: bold;
+    }
+  }
+
+  // Operators
+  .product-price {
+    font-size: 18px;
+    color: $primary-color;
+
+    // Example of using operators
+    &.sale {
+      color: $primary-color * 0.8; // 80% of the primary color
+      text-decoration: line-through;
+    }
+  }
+}

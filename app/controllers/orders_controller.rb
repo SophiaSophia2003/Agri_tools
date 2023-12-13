@@ -21,12 +21,24 @@ class OrdersController < ApplicationController
     load_cart_items_to_order
 
     if @order.save
+    intent = Stripe::PaymentIntent.create(
+      amount: @order.total_amount,
+      currency: 'usd'
+    )
+
+    render json: { clientSecret: intent.client_secret }
+      # redirect_to @order, notice: 'Order was successfully created.'
       # Clear the cart after the order is placed
       clear_session_cart
-      redirect_to @order, notice: 'Order was successfully created.'
     else
       render :new
     end
+  end
+
+  def confirm_payment
+    intent = Stripe::PaymentIntent.retrieve(params[:payment_intent_id])
+    order_id = intent.metadata.order_id
+    render json: { status: 'success' }
   end
 
   private
@@ -49,10 +61,19 @@ class OrdersController < ApplicationController
   def clear_session_cart
     session[:cart] = nil
     session[:cart_id] = nil
+    session.delete(:cart_id)
   end
 
   def fetch_cart_items
     session[:cart] || []
   end  
+
+  def calculate_order_total(order_id)
+    # Implement your logic to calculate the order total based on the order_id
+    # ...
+
+    # For example, let's say the order total is $100
+    10000
+  end
 end
 

@@ -6,21 +6,30 @@ class CheckoutsController < ApplicationController
   def show
     @cart = current_cart
     @order = current_customer.orders.build
-    @gst_rate = Province.find_by(@current_customer.province_id).gst_rate
-    @pst_rate = Province.find_by(@current_customer.province_id).pst_rate
-    @hst_rate = Province.find_by(@current_customer.province_id).hst_rate
+    @gst_rate =  Province.find(current_customer.province_id).gst_rate
+    @pst_rate =  Province.find(current_customer.province_id).pst_rate
+    @hst_rate =  Province.find(current_customer.province_id).hst_rate
     load_cart_items_to_order
   end
 
   def process_payment
-    # Implement payment processing logic here
-    # For simplicity, we'll assume a successful payment
     @cart = current_cart
-    @order = current_customer.orders.build(order_params)
-    # @order = current_customer.orders.build(order_params)
-
+    @order = current_customer.orders.build(order_params.merge!(status: 'NEW'))
     if @order.save
-      clear_cart
+      customer = Stripe::Customer.create({
+        :email => params[:stripeEmail],
+        :source => params[:stripeToken]
+      })
+      charge = Stripe::Charge.create({
+        :customer => customer.id,
+        :amount => order_params[:total_amount].to_i * 100,
+        :description => 'Test Payment',
+        :currency => 'usd'
+      })
+        clear_cart
+      if charge.status == "succeeded"
+        @order.update(status: "PAID",stripe_payment_id: charge.id)
+      end
       redirect_to order_path(@order), notice: 'Order was successfully placed.'
     else
       render :show
@@ -42,6 +51,8 @@ class CheckoutsController < ApplicationController
 
   def clear_cart
     session[:cart] = nil
+    session[:cart_id] = nil
+    session.delete(:cart_id)
   end
 
   def order_params

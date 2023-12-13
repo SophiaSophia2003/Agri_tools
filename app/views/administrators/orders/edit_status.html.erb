@@ -1,0 +1,8 @@
+<%= form_for [:admin, @order], url: update_status_administrators_order_path(@order), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, Order.statuses.keys.map { |s| [s.humanize, s] }, {}, class: 'form-control' %>
+  </div>
+
+  <%= f.submit 'Update Status', class: 'btn btn-primary' %>
+<% end %>

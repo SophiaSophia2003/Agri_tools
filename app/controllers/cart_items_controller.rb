@@ -28,6 +28,9 @@ class CartItemsController < ApplicationController
 
   def destroy
     @cart_item.destroy
+    session[:cart] = nil
+    session[:cart_id] = nil
+    session.delete(:cart_id)
     redirect_to cart_path, notice: 'Item removed from cart.'
   end
 

@@ -4,13 +4,14 @@ class Product < ApplicationRecord
    validates :price, numericality: { greater_than_or_equal_to: 0 }
 	 has_many :product_taxes
    has_many :taxes, through: :product_taxes
-   belongs_to :category
+  has_many :categorizations
+  has_many :categories, through: :categorizations
    has_many :reviews
    has_many :order_items
    has_many :cart_items
    has_many :product_images, dependent: :destroy
    as_enum :product_type, ['SALE','NEW','RECENTLY'], map: :string, source: :product_type
-   # mount_uploader :thumbnail, ThumbnailUploader
+   mount_uploader :thumbnail, ThumbnailUploader
 
 
 end

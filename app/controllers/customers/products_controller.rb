@@ -1,8 +1,8 @@
 # app/controllers/admin/products_controller.rb
 
 class Customer::ProductsController < ApplicationController
-  # before_action :authenticate_customer!
-  before_action :check_admin_role
+  before_action :authenticate_customer!
+  before_action :set_category
 
   def index
     @cart_item = CartItem.new
@@ -20,11 +20,20 @@ class Customer::ProductsController < ApplicationController
     else
       @products = Product.page(params[:page]).per(3)
     end
+      add_breadcrumb 'Home', :root_path
+      add_breadcrumb 'Products'  
+  end
+
+  def show
+    add_breadcrumb 'Home', :root_path
+    add_breadcrumb @product.categories.map{ |c| link_to(c.name,administrators_category_path(c))}.join(", "), category_path(@category) if @product.categories
+    add_breadcrumb 'Products', product_index_path
+    add_breadcrumb @product.name
   end
 
   private
 
-  def check_admin_role
-    redirect_to root_path, alert: 'You are not authorized.' unless current_user.admin?
+  def set_category
+    @category = Category.find(params[:category_id]) if params[:category_id]
   end
 end

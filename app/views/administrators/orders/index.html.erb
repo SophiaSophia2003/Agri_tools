@@ -1,6 +1,7 @@
 <!-- app/views/admin/products/index.html.erb -->
 
 <h1>Order Management</h1>
+<br>
 
 
 <table class="table">
@@ -25,9 +26,12 @@
         <td>
           <%#= link_to 'Edit', edit_administrators_order_path(order), class: 'btn btn-warning btn-sm' %>
           <%= link_to 'View', administrators_order_path(order), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Update Status', edit_status_administrators_order_path(order) , class: 'btn btn-warning btn-sm'%>
           <%#= link_to 'Delete', administrators_order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
         </td>
       </tr>
     <% end %>
+
   </tbody>
 </table>
+    <%= paginate @orders %>

@@ -1,10 +1,9 @@
-<!-- app/views/checkout/show.html.erb -->
+<%= form_with(model: @order, url: process_payment_checkout_path, method: :post) do |form| %>
+<!--   <label class="amount">
+      <span>Amount: $5.00</span>
+  </label> -->
 
-<h1>Checkout</h1>
-
-
-  <%= form_with(model: @order, url: process_payment_checkout_path, method: :post) do |form| %>
-    <% if @cart.cart_items.any? %>
+ <% if @cart.cart_items.any? %>
       <table>
         <thead>
           <tr>
@@ -50,9 +49,13 @@
         <%= cart_item_form.hidden_field :product_id, value: cart_item.product.id %>
         <%= cart_item_form.hidden_field :quantity, value: cart_item.quantity %>
       <% end %>
-    <% end %>
-  <%# end %>
+    <% end %>  
 
-    <%= form.submit "Place Order", class: "btn btn-primary" %>
-  <% end %>
-
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-description="A month's subscription"
+    data-amount=""
+    data-locale="auto">
+  </script>
+<% end %>

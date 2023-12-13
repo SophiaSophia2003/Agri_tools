@@ -1,6 +1,8 @@
 require_relative "boot"
 
 require "rails/all"
+require 'sprockets/railtie'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,5 +22,8 @@ module EcommerceStore
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.breadcrumbs_separator = ' &raquo; '
+    config.breadcrumbs_class = 'breadcrumbs'
   end
 end

@@ -5,7 +5,7 @@ class Administrators::OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = Order.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def show
@@ -15,20 +15,17 @@ class Administrators::OrdersController < ApplicationController
     @order = Order.new
   end
 
-  def edit
+  def edit_status
+    @order = Order.find(params[:id])
   end
 
-  def update
-    if @order.update(order_params)
-      redirect_to administrators_order_path(@order), notice: 'Order was successfully updated.'
+  def update_status
+    @order = Order.find(params[:id])
+    if @order.update(update_order_params)
+      redirect_to administrators_orders_path, notice: 'Order status updated successfully.'
     else
-      render :edit
+      render :edit_status
     end
-  end
-
-  def destroy
-    @order.destroy
-    redirect_to administrators_orders_path, notice: 'order was successfully deleted.'
   end
 
   private
@@ -36,6 +33,10 @@ class Administrators::OrdersController < ApplicationController
   def set_order
     @order = Order.find(params[:id])
   end
+
+  def update_order_params
+    params.require(:order).permit(:status)
+  end  
 
   def order_params
      params.require(:order).permit(:name, :price,:stock_quantity, :description, :thumbnail, :category_id, order_images_attributes: [:image])

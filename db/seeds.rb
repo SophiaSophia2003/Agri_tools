@@ -55,18 +55,113 @@ def random_tax_rate
 end
 
 # Seed data for Canada provinces
+  # provinces_data = [
+  #   { name: 'Alberta', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
+  #   { name: 'British Columbia', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
+  #   { name: 'Manitoba', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
+  #   { name: 'New Brunswick', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
+  #   { name: 'Newfoundland and Labrador', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
+  #   { name: 'Nova Scotia', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
+  #   { name: 'Ontario', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
+  #   { name: 'Prince Edward Island', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
+  #   { name: 'Quebec', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: '0.00' },
+  #   { name: 'Saskatchewan', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' }
+  # ]
+
   provinces_data = [
-    { name: 'Alberta', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
-    { name: 'British Columbia', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
-    { name: 'Manitoba', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' },
-    { name: 'New Brunswick', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
-    { name: 'Newfoundland and Labrador', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
-    { name: 'Nova Scotia', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
-    { name: 'Ontario', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
-    { name: 'Prince Edward Island', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: random_tax_rate },
-    { name: 'Quebec', gst_rate: random_tax_rate, pst_rate: '0.00', hst_rate: '0.00' },
-    { name: 'Saskatchewan', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' }
-  ]
+  {
+    "name": "Alberta",
+    "name_abbreviation": "AB",
+    "gst": 0.05,
+    "pst": 0.0,
+    "hst": 0.0
+  },
+  {
+    "name": "British Columbia",
+    "name_abbreviation": "BC",
+    "gst": 0.05,
+    "pst": 0.07,
+    "hst": 0.0
+  },
+  {
+    "name": "Manitoba",
+    "name_abbreviation": "MB",
+    "gst": 0.05,
+    "pst": 0.07,
+    "hst": 0.0
+  },
+  {
+    "name": "New Brunswick",
+    "name_abbreviation": "NB",
+    "gst": 0.0,
+    "pst": 0.0,
+    "hst": 0.15
+  },
+  {
+    "name": "Newfoundland and Labrador",
+    "name_abbreviation": "NL",
+    "gst": 0.0,
+    "pst": 0.0,
+    "hst": 0.15
+  },
+  {
+    "name": "Nova Scotia",
+    "name_abbreviation": "NT",
+    "gst": 0.05,
+    "pst": 0.0,
+    "hst": 0.0
+  },
+  {
+    "name": "Northwest Territories",
+    "name_abbreviation": "NS",
+    "gst": 0.0,
+    "pst": 0.0,
+    "hst": 0.15
+  },
+  {
+    "name": "Nunavut",
+    "name_abbreviation": "NU",
+    "gst": 0.05,
+    "pst": 0.0,
+    "hst": 0.0
+  },
+  {
+    "name": "Ontario",
+    "name_abbreviation": "ON",
+    "gst": 0.0,
+    "pst": 0.0,
+    "hst": 0.13
+  },
+  {
+    "name": "Prince Edward Island",
+    "name_abbreviation": "PE",
+    "gst": 0.0,
+    "pst": 0.0,
+    "hst": 0.15
+  },
+  {
+    "name": "Quebec",
+    "name_abbreviation": "QC",
+    "gst": 0.05,
+    "pst": 0.09975,
+    "hst": 0.0
+  },
+  {
+    "name": "Saskatchewan",
+    "name_abbreviation": "SK",
+    "gst": 0.05,
+    "pst": 0.06,
+    "hst": 0.0
+  },
+  {
+    "name": "Yukon",
+    "name_abbreviation": "YT",
+    "gst": 0.05,
+    "pst": 0.0,
+    "hst": 0.0
+  }
+]
+
 
 provinces_data.each do |province|
   Province.create(name: province[:name],gst_rate:  province[:gst_rate],pst_rate:  province[:pst_rate],hst_rate:  province[:hst_rate])
@@ -81,7 +176,8 @@ end
     email: Faker::Internet.email,
     password: customer_password,
     password_confirmation: customer_password,
-    phone_number: Faker::PhoneNumber.phone_number
+    phone_number: Faker::PhoneNumber.phone_number,
+    province_id: Province.pluck(:id).sample
   )
    puts "#{customer.email} : #{customer_password}"
 
@@ -114,3 +210,10 @@ values_array = ["NEW", "SALE","RECENTLY"]
 
   ProductImage.create(product_id: product.id,image: Faker::Placeholdit.image(size: '300x200', format: 'jpg', background_color: Faker::Color.hex_color[1..-1], text_color: Faker::Color.hex_color[1..-1], text: 'Product Image'))
 end
+
+200.times do
+  Categorization.create(product_id: Product.pluck(:id).sample,category_id: Category.pluck(:id).sample)
+end
+
+
+# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
