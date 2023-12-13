@@ -48,6 +48,7 @@
   <div class="col-md-6">
     <%= render 'shared/search_form' %>
   </div>
+ <% if customer_signed_in? %>
   <div class="col-md-2 ">
     <ul class="navbar-nav mr-auto float-right">
       <li class="nav-item">
@@ -55,4 +56,5 @@
       </li>
     </ul>
   </div>
+  <%end%>
 </div>

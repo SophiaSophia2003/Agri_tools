@@ -16,6 +16,8 @@ class Customers::SessionsController < Devise::SessionsController
   # DELETE /resource/sign_out
   def destroy
     super
+     redirect_to new_customer_session_path
+
   end
 
   # protected

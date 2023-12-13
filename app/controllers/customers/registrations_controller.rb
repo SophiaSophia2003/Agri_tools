@@ -2,6 +2,7 @@
 
 class Customers::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
+    before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -41,13 +42,25 @@ class Customers::RegistrationsController < Devise::RegistrationsController
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,:last_name,:phone_number])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,:last_name,:phone_number,:province_id])
     # Add other attributes you want to permit during sign-up
   end
 
   def after_sign_up_path_for(resource)
     # Redirect to the product page after sign up
     products_path(resource)
+  end
+
+
+
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:province_id, :other_attributes])
+  end
+
+  def build_resource(hash = {})
+    self.resource = resource_class.new_with_session(hash, session)
+    self.resource.province_id = hash[:province_id]
+    self.resource
   end
 
   # If you have extra params to permit, append them to the sanitizer.

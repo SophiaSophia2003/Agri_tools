@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_191303) do
   create_table "addresses", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "address_type"
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "remember_created_at"
   end
 
   create_table "cart_items", charset: "utf8mb4", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order_id"
   end
 
   create_table "carts", charset: "utf8mb4", force: :cascade do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "province_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -114,6 +117,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.index ["order_id"], name: "payment_order_id_FK"
   end
 
+  create_table "product_images", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_images_on_product_id"
+  end
+
   create_table "product_taxes", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "product_id"
     t.bigint "tax_id"
@@ -132,14 +143,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "administrator_id"
+    t.string "product_type"
+    t.string "thumbnail"
     t.index ["category_id"], name: "product_category_id_FK"
   end
 
   create_table "provinces", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "name"
+    t.string "name"
     t.decimal "tax", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "gst_rate", precision: 10, default: "0"
+    t.decimal "pst_rate", precision: 10, default: "0"
+    t.decimal "hst_rate", precision: 10, default: "0"
   end
 
   create_table "reviews", charset: "utf8mb4", force: :cascade do |t|
@@ -169,6 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_122538) do
   add_foreign_key "orders", "customers", name: "order_customer_id_FK", on_update: :cascade
   add_foreign_key "orders", "provinces", name: "orders_province_id_FK", on_update: :cascade
   add_foreign_key "payments", "orders", name: "payment_order_id_FK", on_update: :cascade
+  add_foreign_key "product_images", "products"
   add_foreign_key "product_taxes", "products", name: "product_tax_product_id_FK", on_update: :cascade
   add_foreign_key "product_taxes", "taxes", name: "product_tax_tax_id_FK", on_update: :cascade
   add_foreign_key "products", "categories", name: "product_category_id_FK", on_update: :cascade

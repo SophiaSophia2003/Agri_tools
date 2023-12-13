@@ -31,6 +31,9 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <%= f.collection_select(:province_id, Province.all, :id, :name, { prompt: 'Select Province' }) %>
+  
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

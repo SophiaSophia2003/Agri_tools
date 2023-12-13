@@ -3,6 +3,7 @@ class CustomersController < ApplicationController
 
   def show
     @customer = current_customer
+    @province = Province.find_by(@customer.province_id).name
     @addresses = @customer.addresses
   end
 
@@ -12,6 +13,9 @@ class CustomersController < ApplicationController
 
   def update
     @customer = current_customer
+    if params[:customer][:province_id].present?
+      @customer.update_columns(province_id: params[:customer][:province_id].to_i)
+    end
     if @customer.update(customer_params)
       redirect_to customer_path, notice: 'Account updated successfully.'
     else
@@ -22,6 +26,6 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer).permit(:first_name,:last_name, :email, :password, :password_confirmation)
+    params.require(:customer).permit(:first_name,:last_name, :email, :password, :password_confirmation,:province_id)
   end
 end

@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.0"
+ruby "3.0.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
@@ -15,6 +15,26 @@ gem "mysql2", "~> 0.5"
 gem 'devise'
 
 gem 'byebug'
+
+# enum gem
+gem 'simple_enum'
+
+# Gemfile
+gem 'faker'
+
+
+# Image Uploads
+gem 'carrierwave'
+gem 'carrierwave_backgrounder', :git => 'https://github.com/lardawge/carrierwave_backgrounder'
+# gem 'fog', require: 'fog/aws'
+gem 'fog-aws'
+gem 'mini_magick'
+gem 'file_validators'
+
+#Pagination gem
+gem 'kaminari'
+
+
 
 
 # Use the Puma web server [https://github.com/puma/puma]

@@ -1,0 +1,47 @@
+<!-- app/views/products/new.html.erb -->
+
+<%= form_with model: @product, local: true do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select(:category_id, Category.all, :id, :name, prompt: true) %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stock_quantity %>
+    <%= form.number_field :stock_quantity %>
+  </div>  
+
+  <!-- Add other fields as needed -->
+
+  <div class="field">
+    <%= form.label :thumbnail %>
+    <%= form.file_field :thumbnail %>
+  </div>
+
+  <h3>Product Images</h3>
+  <%= form.fields_for :product_images do |image_form| %>
+    <div class="field">
+      <%= image_form.label :image %>
+      <%= image_form.file_field :image %>
+    </div>
+  <% end %>  
+
+  <div class="actions">
+    <%= form.submit 'Create Product' %>
+  </div>
+<% end %>

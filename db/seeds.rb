@@ -7,7 +7,7 @@
 # #   Character.create(name: "Luke", movie: movies.first)
 # # Product.destroy_all
 # # Category.destroy_all
-# # admin = Administrator.create(active: true, first_name: 'test', last_name: 'example', email: 'test2@example.com', password: '123123123',password_confirmation: ''123123123)   
+# # admin = Administrator.create(active: true, first_name: 'test', last_name: 'example', email: 'test2@example.com', password: '123123123',password_confirmation: ''123123123)
 # # categories = [{name: "Gardaning",description: "Gardaning"},{name: "Harvesting tools",description:"Harvesting tools"},{name: "Seeders",description:"Seeders description"}]
 
 # # categories.each do |cat|
@@ -17,7 +17,7 @@
 # # products = [{name: "Shovel",description: "Shovel description",price: 10,stock_quantity: 200,category_id: 1},{name: "Spade",description:"Spade description",stock_quantity:20,price:80,category_id: 1},{name: "Walk behind cultivators",description:"Walk behind cultivators description",price: 200,stock_quantity:10,category_id: 2},{name: "Sickli",description:"Sickli description",price:32,stock_quantity:21,category_id: 2},{name: "Scythe",description:"Scythe description",price:43,stock_quantity:200,category_id: 3},{name: "Rake",description:"Rake description",price:43.99,stock_quantity:200,category_id: 3}]
 # # tax = Tax.create(name: 'shirt tax',rate: 10)
 # # products.each do |product|
-# #   prod = Product.create(name: product[:name], description: product[:description], price: product[:price], stock_quantity: product[:stock_quantity], category_id: product[:category_id], administrator_id: admin.id) 
+# #   prod = Product.create(name: product[:name], description: product[:description], price: product[:price], stock_quantity: product[:stock_quantity], category_id: product[:category_id], administrator_id: admin.id)
 # #   ProductTax.create(product_id: prod.id,tax_id: tax.id)
 # # end
 
@@ -72,7 +72,7 @@ provinces_data.each do |province|
   Province.create(name: province[:name],gst_rate:  province[:gst_rate],pst_rate:  province[:pst_rate],hst_rate:  province[:hst_rate])
 end
 
-Seed customers with addresses
+# Seed customers with addresses
 10.times do
   customer_password = Faker::Internet.password(min_length: 12)
   customer = Customer.create(
@@ -113,4 +113,4 @@ values_array = ["NEW", "SALE","RECENTLY"]
   puts product.thumbnail
 
   ProductImage.create(product_id: product.id,image: Faker::Placeholdit.image(size: '300x200', format: 'jpg', background_color: Faker::Color.hex_color[1..-1], text_color: Faker::Color.hex_color[1..-1], text: 'Product Image'))
-end 
+end
