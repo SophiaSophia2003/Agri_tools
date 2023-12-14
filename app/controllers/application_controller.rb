@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_cart
-
     if session[:cart_id]
       Cart.find(session[:cart_id])
     else

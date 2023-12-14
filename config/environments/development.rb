@@ -41,7 +41,6 @@ Rails.application.configure do
   config.carrierwave_root = Rails.root.join('public', 'uploads')
   config.carrierwave_storage = :file
 
-
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 

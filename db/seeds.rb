@@ -68,7 +68,7 @@ end
   #   { name: 'Saskatchewan', gst_rate: random_tax_rate, pst_rate: random_tax_rate, hst_rate: '0.00' }
   # ]
 
-  provinces_data = [
+provinces_data = [
   {
     "name": "Alberta",
     "name_abbreviation": "AB",
@@ -162,7 +162,6 @@ end
   }
 ]
 
-
 provinces_data.each do |province|
   Province.create(name: province[:name],gst_rate:  province[:gst_rate],pst_rate:  province[:pst_rate],hst_rate:  province[:hst_rate])
 end
@@ -214,6 +213,3 @@ end
 200.times do
   Categorization.create(product_id: Product.pluck(:id).sample,category_id: Category.pluck(:id).sample)
 end
-
-
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
